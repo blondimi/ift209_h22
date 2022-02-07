@@ -2,14 +2,26 @@
 
 # Multiplication d'entiers signés
 
-...
+Rappelons qu'en classe nous avons vu un algorithme «simple» afin de multiplier deux entiers signés _x_
+et _y_ de _n_ bits:
+
+1. Étendre _x_ et _y_ à _2n_ bits en répétant _n_ fois leur bit de signe respectif;
+2. Multiplier ces deux nombres comme s'ils étaient non signés;
+3. Tronquer le résultat aux _2n_ bits de poids faible.
+
+Il s'agit de l'algorithme que vous avez implémenté au labo 2.
+
+Nous allons maintenant démontré que cet algorithme est correct, c'est-à-dire qu'il retourne toujours la bonne sortie.
+Nous considérons deux cas: celui où y ≥ 0, qui est plus simple, puis celui où y < 0, qui est plus complexe (pour être
+honnête: aucun des cas n'est vraiment simple!)
 
 ## Cas où y ≥ 0
 
 Comme dans le cas non signé, nous avons
 _x · y = x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-1</sub> · 2<sup>n-1</sup>) = x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup>_.
 Par exemple, _-2 · 3 = -2 · 1 + -2 · 2 = -6_.
-Ainsi, afin d'obtenir _x · y_, nous pouvons utiliser la même approche que dans le cas non signé:
+Ainsi, afin d'obtenir _x · y_, nous pouvons utiliser la même approche que la multiplication non signée.
+Sous pseudocode, il s'agit de:
 
 ```
   acc ← 0
@@ -37,6 +49,11 @@ de multiplication non signée, nous obtenons ce résultat erroné:
 Cela survient car on additionne un nombre de 3 bits à un nombre de 4 bits. Pour que cela fasse du sens, il faut étendre avec le bit de signe:
 
 ```
+extension du bit de signe
+  |
+  |
+  v
+  
   1110
 + 1100
 ¯¯¯¯¯¯
@@ -44,11 +61,16 @@ Cela survient car on additionne un nombre de 3 bits à un nombre de 4 bits. Pour
 ```
 
 Comme il y a au plus _n_ termes à la somme, il suffit d'étendre chaque terme à _2n_ bits. Plutôt que de réaliser cette extension lors des additions, nous pouvons
-étendre directement _x_ et _y_ sur _2n_ bits avant la multiplication:
+étendre directement _x_ sur _2n_ bits avant la multiplication:
 
 ```
+extension ici
+    |
+    |
+   vvv
+   
    111110  (-2)
-×  000011   (3)
+×     011   (3)
 ¯¯¯¯¯¯¯¯¯
    111110
 + 1111100
@@ -56,14 +78,14 @@ Comme il y a au plus _n_ termes à la somme, il suffit d'étendre chaque terme �
  10111010 (-70)
 ```
 
-Remarquons que le résultat est encore erroné! Cela se produit à nouveau car les deux termes ne sont pas sur le même nombre de bits.
+Remarquons que le résultat est encore erroné! Cela se produit à nouveau car les deux termes de l'addition ne sont pas sur le même nombre de bits.
 Par contre, sur les _2n_ bits de poids faible, les termes sont de la même taille. Comme le résultat d'une multiplication entre
-forcément dans _2n_ bits, toute l'information pertinente s'y trouve. Il suffit donc d'enlever les bits excédentaires et de tronquer
+forcément dans _2n_ bits, toute l'information pertinente s'y trouve. Il suffit donc d'enlever les bits excédentaires en troquant
 à _2n_ bits. Nous obtenons ainsi:
 
 ```
    111110  (-2)
-×  000011   (3)
+×     011   (3)
 ¯¯¯¯¯¯¯¯¯
    111110
 + 1111100
@@ -91,11 +113,11 @@ ces deux nombres à 6 bits, effectue la multiplication non signée sur 12 bits, 
   xxxxx111010  (-6)
 ```
 
-Les termes de l'addition peuvent être scindés en deux blocs que nous appelons «bloc A» et «bloc B»:
+Les termes de la suite d'additions peuvent être scindés en deux blocs que nous appelons «bloc A» et «bloc B»:
 
 ```
-       000 011   (3)
-×      111 110  (-2)
+       000011   (3)
+×      111110  (-2)
 ¯¯¯¯¯¯¯¯¯¯¯¯¯
        000000    ###########################################################################
       0000110    #  Bloc A: termes qui proviennent de 110 (valeur non signée de y)
@@ -108,36 +130,41 @@ Les termes de l'addition peuvent être scindés en deux blocs que nous appelons 
   xxxxx111010  (-6)
 ```
 
+Analysons ces deux blocs afin d'identifier leur valeur respective.
+
 ### Bloc A
 
-La première partie calcule le produit de ```x``` et la valeur _non signée_ de ```y```. Dans notre exemple,
-nous avons ```BlocA = 3 · 2¹ + 3 · 2² = 18```. En général, nous obtenons:
+Cette partie calcule le produit de ```x``` et la valeur _non signée_ de ```y```. Dans notre exemple,
+nous avons ```BlocA = 3 · 2¹ + 3 · 2²```. En général, nous obtenons:
 <code>
- BlocA = x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup>.
+BlocA = x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup>.
 </code>
 
 ### Bloc B
 
-La deuxième partie additionne _n_ fois des décalages de ```x```, car on considère le bit de
-signe répété _n_ fois. Dans notre exemple, nous avons ```BlocB =  3 · 2³ + 3 · 2⁴ + 3 · 2⁵ = 168```.
+Cette partie additionne _n_ fois des décalages de ```x```, car on considère le bit de
+signe répété _n_ fois. Dans notre exemple, nous avons ```BlocB =  3 · 2³ + 3 · 2⁴ + 3 · 2⁵```.
 En général, nous obtenons
 <code>
- BlocB = (2<sup>n</sup> · x + ... + 2<sup>2n-1</sup> · x)
-</code>.
+BlocB = x · 2<sup>n</sup> + ... + x · 2<sup>2n-1</sup>.
+</code>
 
 Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
 <pre>
- Proposition: BlocB = (2<sup>2n</sup> · x - 2<sup>n</sup> · x).
+ Proposition: BlocB = x · (2<sup>2n</sup> - 2<sup>n</sup>).
  
  Preuve:
  
- BlocB = (2<sup>n</sup> · x + ... + 2<sup>2n-1</sup> · x)
-       = 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>) · x
-       = 2<sup>n</sup> · (2<sup>n</sup> - 1) · x
-       = (2<sup>2n</sup> · x - 2<sup>n</sup> · x). □
+ BlocB = (x · 2<sup>n</sup> + ... + x · 2<sup>2n-1</sup> )
+       = x · 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>)
+       = x · 2<sup>n</sup> · (2<sup>n</sup> - 1)
+       = x · (2<sup>2n</sup> - 2<sup>n</sup>). □
 </pre>
 
 ### Bloc A + Bloc B
+
+La sortie de l'algorithme correspond à ```(BlocA + BlocB) mod 2<pre>2n</pre>```. Ici, le modulo correspond
+à la troncation sur les _2n_ bits de poids faible. Nous avons donc:
 
 <pre>
   Sortie de l'algorithme
