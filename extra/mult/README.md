@@ -142,9 +142,9 @@ Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
 <pre>
   Sortie de l'algorithme
 = (BlocA + BlocB) mod 2<sup>2n</sup>
-= (BlocA mod 2<sup>2n</sup>) + (BlocB mod 2<sup>2n</sup>) mod 2<sup>2n</sup>                 [car ab mod c = ((a mod c) + (b mod c)) mod c]
-= (BlocA + (BlocB mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                                    [car BlocA < 2<sup>2n</sup>]
-= (BlocA + ((2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>) mod 2<sup>2n</sup>  [par la proposition]
+= (BlocA mod 2<sup>2n</sup>) + (BlocB mod 2<sup>2n</sup>) mod 2<sup>2n</sup>       [car ab mod c = ((a mod c) + (b mod c)) mod c]
+= (BlocA + (BlocB mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                      [car BlocA < 2<sup>2n</sup>]
+= (BlocA + ((2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>) mod 2<sup>2n</sup>    [par la proposition]
 = (BlocA + (-2<sup>n</sup> · x mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                       [car 2<sup>2n</sup> · x mod 2<sup>2n</sup> = 0]
 = (BlocA + (2<sup>2n</sup> - 2<sup>n</sup> · x)) mod 2<sup>2n</sup>
 = (BlocA - 2<sup>n</sup> · x) mod 2<sup>2n</sup>
