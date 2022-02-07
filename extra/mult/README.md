@@ -128,14 +128,14 @@ En général, nous obtenons
 
 Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
 <pre>
- Proposition: BlocB = 2<sup>2n</sup> - x.
+ Proposition: BlocB = 2<sup>2n</sup> - 2<sup>n</sup> · x.
  
  Preuve:
  
- BlocB = (2<sup>n</sup>·x + ... + 2<sup>2n-1</sup>·x) mod 2<sup>2n</sup>
-       = 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>)·x mod 2<sup>2n</sup>
-       = 2<sup>n</sup> · (2<sup>n</sup> - 1)·x mod 2<sup>2n</sup>
+ BlocB = (2<sup>n</sup> · x + ... + 2<sup>2n-1</sup> · x) mod 2<sup>2n</sup>
+       = 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>) · x mod 2<sup>2n</sup>
+       = 2<sup>n</sup> · (2<sup>n</sup> - 1) · x mod 2<sup>2n</sup>
        = (2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>
-       = -x mod 2<sup>2n</sup>
-       = 2<sup>2n</sup> - x. □
+       = (-2<sup>n</sup> · x) mod 2<sup>2n</sup>
+       = 2<sup>2n</sup> - 2<sup>n</sup> · x. □
 </pre>
