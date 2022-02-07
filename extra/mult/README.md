@@ -118,20 +118,22 @@ nous avons ```BlocA = 3 · 2¹ + 3 · 2² = 18```. En général, nous obtenons:
 
 ### Bloc B
 
-La deuxième partie additionne un décalage de ```x``` à répétition car il n'y a qu'une répétition
-de ```1```. De plus, comme on tronque à _2n_ bits, cela revient à garder le résultat modulo 
+La deuxième partie additionne un décalage de ```x``` à répétition car on considère le bit de
+signe répété _n_ fois. De plus, comme on tronque à _2n_ bits, cela revient à garder le résultat modulo 
 2<sup>n</sup>. Dans notre exemple, nous avons ```BlocB =  (3 · 2³ + 3 · 2⁴ + 3 · 2⁵) mod 2⁶ = 40```.
 En général, nous obtenons
 <code>
  BlocB = (2<sup>n</sup>·x + ... + 2<sup>2n-1</sup>·x) mod 2<sup>2n</sup>
 </code>.
 
+Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
 <pre>
- Proposition: BlocB = 2<sup>n</sup> - x.
+ Proposition: BlocB = 2<sup>2n</sup> - x.
  
  Preuve:
-         (2<sup>n</sup>·x + ... + 2<sup>2n-1</sup>·x) mod 2<sup>2n</sup>
-       = 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>2n-1</sup>)·x mod 2<sup>2n</sup>
+ 
+ BlocB = (2<sup>n</sup>·x + ... + 2<sup>2n-1</sup>·x) mod 2<sup>2n</sup>
+       = 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>)·x mod 2<sup>2n</sup>
        = 2<sup>n</sup> · (2<sup>n</sup> - 1)·x mod 2<sup>2n</sup>
        = (2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>
        = -x mod 2<sup>2n</sup>
