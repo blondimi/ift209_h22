@@ -1,5 +1,3 @@
- ___Ce billet est en construction; à lire à vos risques et périls!___
-
 # Multiplication d'entiers signés
 
 Rappelons qu'en classe nous avons vu un algorithme «simple» afin de multiplier deux entiers signés _x_
@@ -153,17 +151,15 @@ Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
 <pre>
  Proposition: BlocB = x · (2<sup>2n</sup> - 2<sup>n</sup>).
  
- Preuve:
- 
- BlocB = (x · 2<sup>n</sup> + ... + x · 2<sup>2n-1</sup> )
-       = x · 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>)
-       = x · 2<sup>n</sup> · (2<sup>n</sup> - 1)
-       = x · (2<sup>2n</sup> - 2<sup>n</sup>). □
+ Preuve:  BlocB = (x · 2<sup>n</sup> + ... + x · 2<sup>2n-1</sup>)
+                = x · 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>)
+                = x · 2<sup>n</sup> · (2<sup>n</sup> - 1)
+                = x · (2<sup>2n</sup> - 2<sup>n</sup>). □
 </pre>
 
 ### Bloc A + Bloc B
 
-La sortie de l'algorithme correspond à ```(BlocA + BlocB) mod 2<pre>2n</pre>```. Ici, le modulo correspond
+La sortie de l'algorithme est <code>(BlocA + BlocB) mod 2<sup>2n</sup></code>. Ici, le modulo correspond
 à la troncation sur les _2n_ bits de poids faible. Nous avons donc:
 
 <pre>
@@ -171,15 +167,15 @@ La sortie de l'algorithme correspond à ```(BlocA + BlocB) mod 2<pre>2n</pre>```
 = (BlocA + BlocB) mod 2<sup>2n</sup>
 = (BlocA mod 2<sup>2n</sup>) + (BlocB mod 2<sup>2n</sup>) mod 2<sup>2n</sup>             [car ab mod c = ((a mod c) + (b mod c)) mod c]
 = (BlocA + (BlocB mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                    [car BlocA < 2<sup>2n</sup>]
-= (BlocA + ((2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>) mod 2<sup>2n</sup>         [par la proposition]
-= (BlocA + (-2<sup>n</sup> · x mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                   [car 2<sup>2n</sup> · x mod 2<sup>2n</sup> = 0]
-= (BlocA + (2<sup>2n</sup> - 2<sup>n</sup> · x)) mod 2<sup>2n</sup>
-= (BlocA - 2<sup>n</sup> · x) mod 2<sup>2n</sup>
-= BlocA - 2<sup>n</sup> · x                                       [car BlocA - ... ≤ BlocA < 2<sup>2n</sup>]
-= BlocA - x · y<sub>n-1</sub> · -2<sup>n</sup>                                [y<sub>n-1</sub> = 1 car y est négatif]
-= x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup> - x · y<sub>n-1</sub> · -2<sup>n</sup>    [par déf. de BlocA].
-= x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-1</sub> · 2<sup>n-1</sup> - y<sub>n-1</sub> · -2<sup>n</sup>)
+= (BlocA + (x · (2<sup>2n</sup> - 2<sup>n</sup>) mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>            [par la proposition]
+= (BlocA + (x · -2<sup>n</sup> mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                   [car x · 2<sup>2n</sup> mod 2<sup>2n</sup> = 0]
+= (BlocA + (2<sup>2n</sup> - x · 2<sup>n</sup>)) mod 2<sup>2n</sup>
+= (BlocA - x · 2<sup>n</sup>) mod 2<sup>2n</sup>                             [car 2<sup>2n</sup> mod 2<sup>2n</sup> = 0]
+= BlocA - x · 2<sup>n</sup>                                       [car BlocA - positif ≤ BlocA < 2<sup>2n</sup>]
+= BlocA + x · y<sub>n-1</sub> · -2<sup>n</sup>                                [car y<sub>n-1</sub> = 1 puisque y est négatif]
+= x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup> + x · y<sub>n-1</sub> · -2<sup>n</sup>    [par définition de BlocA]
+= x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-1</sub> · 2<sup>n-1</sup> + y<sub>n-1</sub> · -2<sup>n</sup>)
 = x · (valeur signée de y sur n + 1 bits)
 </pre>
-Remarquons que le dernier terme de la chaîne d'équations correspond précisément au produit signé de x et y étendu d'un bit.
-Comme étendre y d'un bit ne change pas sa valeur, l'algorithme retourne la bonne sortie! 🤯
+Remarquons que le dernier terme de la chaîne d'équations correspond précisément au produit de _x_ et _y_ étendu d'un bit.
+Comme étendre _y_ d'un bit ne change pas sa valeur, l'algorithme retourne la bonne sortie! 🤯
