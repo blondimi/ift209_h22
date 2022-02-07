@@ -154,5 +154,5 @@ Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
 = x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-1</sub> · 2<sup>n-1</sup> - y<sub>n-1</sub> · -2<sup>n</sup>)
 = x · (valeur signée de y sur n + 1 bits)
 </pre>
-Remarquons que le dernier terme de la chaîne d'équations correspond précisément au produit signé de x par y étendu d'un bit.
-Comme étendre y d'un bit ne change pas sa valeur, l'algorithme retourne la bonne sortie!
+Remarquons que le dernier terme de la chaîne d'équations correspond précisément au produit signé de x et y étendu d'un bit.
+Comme étendre y d'un bit ne change pas sa valeur, l'algorithme retourne la bonne sortie! 🤯
