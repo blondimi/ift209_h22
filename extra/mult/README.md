@@ -77,7 +77,7 @@ extension ici
 ```
 
 Remarquons que le résultat est encore erroné! Cela se produit à nouveau car les deux termes de l'addition ne sont pas sur le même nombre de bits.
-Par contre, sur les _2n_ bits de poids faible, les termes sont de la même taille. Comme le résultat d'une multiplication entre
+Par contre, sur les _2n_ bits de poids faible, tous les bits y sont. Comme le résultat d'une multiplication entre
 forcément dans _2n_ bits, toute l'information pertinente s'y trouve. Il suffit donc d'enlever les bits excédentaires en troquant
 à _2n_ bits. Nous obtenons ainsi:
 
