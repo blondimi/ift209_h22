@@ -118,24 +118,39 @@ nous avons ```BlocA = 3 · 2¹ + 3 · 2² = 18```. En général, nous obtenons:
 
 ### Bloc B
 
-La deuxième partie additionne un décalage de ```x``` à répétition car on considère le bit de
-signe répété _n_ fois. De plus, comme on tronque à _2n_ bits, cela revient à garder le résultat modulo 
-2<sup>n</sup>. Dans notre exemple, nous avons ```BlocB =  (3 · 2³ + 3 · 2⁴ + 3 · 2⁵) mod 2⁶ = 40```.
+La deuxième partie additionne _n_ fois des décalages de ```x```, car on considère le bit de
+signe répété _n_ fois. Dans notre exemple, nous avons ```BlocB =  3 · 2³ + 3 · 2⁴ + 3 · 2⁵ = 168```.
 En général, nous obtenons
 <code>
- BlocB = (2<sup>n</sup>·x + ... + 2<sup>2n-1</sup>·x) mod 2<sup>2n</sup>
+ BlocB = (2<sup>n</sup> · x + ... + 2<sup>2n-1</sup> · x)
 </code>.
 
 Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
 <pre>
- Proposition: BlocB = 2<sup>2n</sup> - 2<sup>n</sup> · x.
+ Proposition: BlocB = (2<sup>2n</sup> · x - 2<sup>n</sup> · x).
  
  Preuve:
  
- BlocB = (2<sup>n</sup> · x + ... + 2<sup>2n-1</sup> · x) mod 2<sup>2n</sup>
-       = 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>) · x mod 2<sup>2n</sup>
-       = 2<sup>n</sup> · (2<sup>n</sup> - 1) · x mod 2<sup>2n</sup>
-       = (2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>
-       = (-2<sup>n</sup> · x) mod 2<sup>2n</sup>
-       = 2<sup>2n</sup> - 2<sup>n</sup> · x. □
+ BlocB = (2<sup>n</sup> · x + ... + 2<sup>2n-1</sup> · x)
+       = 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>) · x
+       = 2<sup>n</sup> · (2<sup>n</sup> - 1) · x
+       = (2<sup>2n</sup> · x - 2<sup>n</sup> · x). □
 </pre>
+
+### Bloc A + Bloc B
+
+<pre>
+  Sortie de l'algorithme
+= (BlocA + BlocB) mod 2<sup>2n</sup>
+= (BlocA mod 2<sup>2n</sup>) + (BlocB mod 2<sup>2n</sup>) mod 2<sup>2n</sup>                 [car ab mod c = ((a mod c) + (b mod c)) mod c]
+= (BlocA + (BlocB mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                                    [car BlocA < 2<sup>2n</sup>]
+= (BlocA + ((2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>) mod 2<sup>2n</sup>  [par la proposition]
+= (BlocA + (-2<sup>n</sup> · x mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                       [car 2<sup>2n</sup> · x mod 2<sup>2n</sup> = 0]
+= (BlocA + (2<sup>2n</sup> - 2<sup>n</sup> · x)) mod 2<sup>2n</sup>
+= (BlocA - 2<sup>n</sup> · x) mod 2<sup>2n</sup>
+= BlocA - 2<sup>n</sup> · x                                                                  [car BlocA - ... ≤ BlocA < 2<sup>2n</sup>]
+= BlocA - x·y<sub>n-1</sub>·-2<sup>n</sup>                                               [y<sub>n-1</sub> = 1 car y est négatif]
+= x·y<sub>n-1</sub>·-2<sup>n</sup> + x·y<sub>0</sub>·2<sup>0</sup> + ... + x·y<sub>n-1</sub>·2<sup>n-1</sup> - x·y<sub>n-1</sub>·-2<sup>n</sup> [par déf. de BlocA].
+</pre>
+Remarquons que le dernier terme de la chaîne d'équations correspond précisément au produit signé de x par y étendu d'un bit.
+Ainsi, l'algorithme retourne la bonne valeur!
