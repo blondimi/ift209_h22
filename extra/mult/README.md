@@ -154,7 +154,7 @@ Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
  Preuve:  BlocB = (x · 2<sup>n</sup> + ... + x · 2<sup>2n-1</sup>)
                 = x · 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>n-1</sup>)
                 = x · 2<sup>n</sup> · (2<sup>n</sup> - 1)
-                = x · (2<sup>2n</sup> - 2<sup>n</sup>). □
+                = x · (2<sup>2n</sup> - 2<sup>n</sup>).         □
 </pre>
 
 ### Bloc A + Bloc B
