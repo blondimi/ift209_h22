@@ -168,7 +168,7 @@ La sortie de l'algorithme est <code>(BlocA + BlocB) mod 2<sup>2n</sup></code>. I
 = (BlocA mod 2<sup>2n</sup>) + (BlocB mod 2<sup>2n</sup>) mod 2<sup>2n</sup>             [car ab mod c = ((a mod c) + (b mod c)) mod c]
 = (BlocA + (BlocB mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                    [car BlocA < 2<sup>2n</sup>]
 = (BlocA + (x · (2<sup>2n</sup> - 2<sup>n</sup>) mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>            [par la proposition]
-= (BlocA + (x · -2<sup>n</sup> mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                   [car x · 2<sup>2n</sup> mod 2<sup>2n</sup> = 0]
+= (BlocA + (x · -2<sup>n</sup> mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                   [car 2<sup>2n</sup> mod 2<sup>2n</sup> = 0]
 = (BlocA + (2<sup>2n</sup> - x · 2<sup>n</sup>)) mod 2<sup>2n</sup>
 = (BlocA - x · 2<sup>n</sup>) mod 2<sup>2n</sup>                             [car 2<sup>2n</sup> mod 2<sup>2n</sup> = 0]
 = BlocA - x · 2<sup>n</sup>                                       [car BlocA - positif ≤ BlocA < 2<sup>2n</sup>]
