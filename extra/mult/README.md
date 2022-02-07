@@ -15,8 +15,8 @@ honnête: aucun des cas n'est vraiment simple!)
 
 ## Cas où y ≥ 0
 
-Comme dans le cas non signé, nous avons
-_x · y = x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-1</sub> · 2<sup>n-1</sup>) = x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup>_.
+Similairement au cas non signé, nous avons
+_x · y = x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-2</sub> · 2<sup>n-2</sup>) = x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-2</sub> · 2<sup>n-2</sup>_.
 Par exemple, _-2 · 3 = -2 · 1 + -2 · 2 = -6_.
 Ainsi, afin d'obtenir _x · y_, nous pouvons utiliser la même approche que la multiplication non signée.
 Sous pseudocode, il s'agit de:
@@ -24,7 +24,7 @@ Sous pseudocode, il s'agit de:
 ```
   acc ← 0
   
-  pour i de 0 à n-1:
+  pour i de 0 à n-2:
     si y[i] = 1:
       acc ← acc + x
       
