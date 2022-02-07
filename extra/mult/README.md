@@ -142,15 +142,15 @@ Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
 <pre>
   Sortie de l'algorithme
 = (BlocA + BlocB) mod 2<sup>2n</sup>
-= (BlocA mod 2<sup>2n</sup>) + (BlocB mod 2<sup>2n</sup>) mod 2<sup>2n</sup>        [car ab mod c = ((a mod c) + (b mod c)) mod c]
-= (BlocA + (BlocB mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>              [car BlocA < 2<sup>2n</sup>]
-= (BlocA + ((2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>) mod 2<sup>2n</sup>    [par la proposition]
-= (BlocA + (-2<sup>n</sup> · x mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                       [car 2<sup>2n</sup> · x mod 2<sup>2n</sup> = 0]
+= (BlocA mod 2<sup>2n</sup>) + (BlocB mod 2<sup>2n</sup>) mod 2<sup>2n</sup>             [car ab mod c = ((a mod c) + (b mod c)) mod c]
+= (BlocA + (BlocB mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                    [car BlocA < 2<sup>2n</sup>]
+= (BlocA + ((2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>) mod 2<sup>2n</sup>         [par la proposition]
+= (BlocA + (-2<sup>n</sup> · x mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                   [car 2<sup>2n</sup> · x mod 2<sup>2n</sup> = 0]
 = (BlocA + (2<sup>2n</sup> - 2<sup>n</sup> · x)) mod 2<sup>2n</sup>
 = (BlocA - 2<sup>n</sup> · x) mod 2<sup>2n</sup>
-= BlocA - 2<sup>n</sup> · x                                                      [car BlocA - ... ≤ BlocA < 2<sup>2n</sup>]
-= BlocA - x·y<sub>n-1</sub>·-2<sup>n</sup>                      [y<sub>n-1</sub> = 1 car y est négatif]
-= x·y<sub>n-1</sub>·-2<sup>n</sup> + x·y<sub>0</sub>·2<sup>0</sup> + ... + x·y<sub>n-1</sub>·2<sup>n-1</sup> - x·y<sub>n-1</sub>·-2<sup>n</sup> [par déf. de BlocA].
+= BlocA - 2<sup>n</sup> · x                                       [car BlocA - ... ≤ BlocA < 2<sup>2n</sup>]
+= BlocA - x·y<sub>n-1</sub>·-2<sup>n</sup>                                    [y<sub>n-1</sub> = 1 car y est négatif]
+= x·y<sub>n-1</sub>·-2<sup>n</sup> + x·y<sub>0</sub>·2<sup>0</sup> + ... + x·y<sub>n-1</sub>·2<sup>n-1</sup> - x·y<sub>n-1</sub>·-2<sup>n</sup>    [par déf. de BlocA].
 </pre>
 Remarquons que le dernier terme de la chaîne d'équations correspond précisément au produit signé de x par y étendu d'un bit.
 Ainsi, l'algorithme retourne la bonne valeur!
