@@ -73,8 +73,67 @@ forcément dans _2n_ bits, toute l'information pertinente s'y trouve. Il suffit 
 
 ## Cas où y < 0
 
-...
+Considérons maintenant le cas où _y_ est négatif. Par exemple, considérons _x = 3_ et _y = -2_ sur _n = 3_ bits.
+En binaire, nous avons ```x = 011``` et ```y = 110```. Rappelons que l'algorithme de multiplication signée étend
+ces deux nombres à 6 bits, effectue la multiplication non signée sur 12 bits, puis tronque aux 6 bits de poids faible:
 
+```
+       000011   (3)
+×      111110  (-2)
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+       000000
+      0000110
+     00001100
++   000011000
+   0000110000
+  00001100000
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+  xxxxx111010  (-6)
+```
+
+Les termes de l'addition peuvent être scindés en deux blocs que nous appelons «bloc A» et «bloc B»:
+
+```
+       000 011   (3)
+×      111 110  (-2)
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+       000000    ###########################################################################
+      0000110    #  Bloc A: termes qui proviennent de 110 (valeur non signée de y)
+     00001100    ###########################################################################
++
+    000011000    ###########################################################################
+   0000110000    #  Bloc B: termes qui proviennent de 111 (répétition du bit de signe de y)
+  00001100000    ###########################################################################
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+  xxxxx111010  (-6)
+```
+
+### Bloc A
+
+La première partie calcule le produit de ```x``` et la valeur _non signée_ de ```y```. Dans notre exemple,
+nous avons ```BlocA = 3 · 2¹ + 3 · 2² = 18```. En général, nous obtenons:
 <code>
- Proposition: (2<sup>0</sup>·x + ... + 2<sup>n-1</sup>·x) mod 2<sup>n</sup> = 2<sup>n</sup> - x.
+ BlocA = x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup>.
 </code>
+
+### Bloc B
+
+La deuxième partie additionne un décalage de ```x``` à répétition car il n'y a qu'une répétition
+de ```1```. De plus, comme on tronque à _2n_ bits, cela revient à garder le résultat modulo 
+2<sup>n</sup>. Dans notre exemple, nous avons ```BlocB =  (3 · 2³ + 3 · 2⁴ + 3 · 2⁵) mod 2⁶ = 40```.
+En général, nous obtenons
+<code>
+ BlocB = (2<sup>n</sup>·x + ... + 2<sup>2n-1</sup>·x) mod 2<sup>2n</sup>
+</code>.
+
+<pre>
+ Proposition: BlocB = 2<sup>n</sup> - x.
+ 
+ Preuve:
+         (2<sup>n</sup>·x + ... + 2<sup>2n-1</sup>·x) mod 2<sup>2n</sup>
+       = 2<sup>n</sup> · (2<sup>0</sup> + ... + 2<sup>2n-1</sup>)·x mod 2<sup>2n</sup>
+       = 2<sup>n</sup> · (2<sup>n</sup> - 1)·x mod 2<sup>2n</sup>
+       = (2<sup>2n</sup> · x - 2<sup>n</sup> · x) mod 2<sup>2n</sup>
+       = -x mod 2<sup>2n</sup>
+       = 2<sup>2n</sup> - x. □
+</pre>
