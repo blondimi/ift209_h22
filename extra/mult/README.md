@@ -157,7 +157,7 @@ La valeur de ```BlocB``` se réécrit plus simplement:
                 = x · (2<sup>2n</sup> - 2<sup>n</sup>).         □
 </pre>
 
-### Bloc A + Bloc B (informel)
+### Bloc A + bloc B (informel)
 
 La sortie de l'algorithme devrait être  _x · y_, c'est-à-dire _x_ multiplié par:
 
@@ -183,7 +183,7 @@ B vient ajouter cette «colonne» manquante. En effet, par la proposition, le bl
 Comme l'algorithme tronque aux _2n_ bits de poids faible, seule _-2<sup>n</sup>_ est ajoutée, ce
 qui correspond précisément à la «colonne» manquante.
 
-### Bloc A + Bloc B (formel)
+### Bloc A + bloc B (formel)
 
 Plus formellement, la sortie de l'algorithme est <code>(BlocA + BlocB) mod 2<sup>2n</sup></code>. Ici, le modulo correspond
 à la troncation sur les _2n_ bits de poids faible. Nous avons donc:
