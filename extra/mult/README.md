@@ -174,8 +174,7 @@ La sortie de l'algorithme est <code>(BlocA + BlocB) mod 2<sup>2n</sup></code>. I
 = BlocA - x · 2<sup>n</sup>                                       [car BlocA - x · 2<sup>n</sup> < 2<sup>2n</sup>]
 = BlocA + x · y<sub>n-1</sub> · -2<sup>n</sup>                                [car y<sub>n-1</sub> = 1 puisque y est négatif]
 = x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup> + x · y<sub>n-1</sub> · -2<sup>n</sup>    [par définition de BlocA]
-= x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-1</sub> · 2<sup>n-1</sup> + y<sub>n-1</sub> · -2<sup>n</sup>)
-= x · (valeur signée de y sur n + 1 bits)
+= x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-1</sub> · 2<sup>n-1</sup> + y<sub>n-1</sub> · -2<sup>n</sup>)          [mise en évidence de x]
+= x · (y<sub>0</sub> · 2<sup>0</sup> + ...+ y<sub>n-1</sub> · 2<sup>n-2</sup> + y<sub>n-1</sub> · -2<sup>n-1</sup>)         [car y<sub>n-1</sub> · 2<sup>n-1</sup> - y<sub>n-1</sub> · 2<sup>n</sup> = y<sub>n-1</sub> · -2<sup>n-1</sup>]
+= x · y.                                               🤯
 </pre>
-Remarquons que le dernier terme de la chaîne d'équations correspond précisément au produit de _x_ et _y_ étendu d'un bit de signe.
-Comme étendre _y_ d'un bit ne change pas sa valeur, l'algorithme retourne la bonne sortie! 🤯
