@@ -171,7 +171,7 @@ La sortie de l'algorithme est <code>(BlocA + BlocB) mod 2<sup>2n</sup></code>. I
 = (BlocA + (x · -2<sup>n</sup> mod 2<sup>2n</sup>)) mod 2<sup>2n</sup>                   [car 2<sup>2n</sup> mod 2<sup>2n</sup> = 0]
 = (BlocA + (2<sup>2n</sup> - x · 2<sup>n</sup>)) mod 2<sup>2n</sup>                      [car -a mod b = b - a lorsque a < b]
 = (BlocA - x · 2<sup>n</sup>) mod 2<sup>2n</sup>                             [car 2<sup>2n</sup> mod 2<sup>2n</sup> = 0]
-= BlocA - x · 2<sup>n</sup>                                       [car BlocA - positif ≤ BlocA < 2<sup>2n</sup>]
+= BlocA - x · 2<sup>n</sup>                                       [car BlocA - x · 2<sup>n</sup> < 2<sup>2n</sup>]
 = BlocA + x · y<sub>n-1</sub> · -2<sup>n</sup>                                [car y<sub>n-1</sub> = 1 puisque y est négatif]
 = x · y<sub>0</sub> · 2<sup>0</sup> + ... + x · y<sub>n-1</sub> · 2<sup>n-1</sup> + x · y<sub>n-1</sub> · -2<sup>n</sup>    [par définition de BlocA]
 = x · (y<sub>0</sub> · 2<sup>0</sup> + ... + y<sub>n-1</sub> · 2<sup>n-1</sup> + y<sub>n-1</sub> · -2<sup>n</sup>)
