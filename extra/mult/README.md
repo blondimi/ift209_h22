@@ -157,9 +157,35 @@ La valeur de ```BlocB``` se réécrit plus simplement:
                 = x · (2<sup>2n</sup> - 2<sup>n</sup>).         □
 </pre>
 
-### Bloc A + Bloc B
+### Bloc A + Bloc B (informel)
 
-La sortie de l'algorithme est <code>(BlocA + BlocB) mod 2<sup>2n</sup></code>. Ici, le modulo correspond
+La sortie de l'algorithme devrait être  _x · y_, c'est-à-dire _x_ multiplié par:
+
+| -2<sup>n-1</sup> | 2<sup>n-2</sup> | ... | 2<sup>1</sup> | 2<sup>0</sup> |
+|:-:|:-:|:-:|:-:|:-:|
+| y<sub>n-1</sub> | y<sub>n-2</sub> | ... | y<sub>1</sub> | y<sub>0</sub> |
+
+Comme l'extension d'un nombre par son bit de signe ne modifie pas sa valeur,
+il est également correct de retourner _x_ multiplié par:
+
+| -2<sup>n</sup> | 2<sup>n-1</sup> | 2<sup>n-2</sup> | ... | 2<sup>1</sup> | 2<sup>0</sup> |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| y<sub>n-1</sub> | y<sub>n-1</sub> | y<sub>n-2</sub> | ... | y<sub>1</sub> | y<sub>0</sub> |
+
+Le bloc A correspond précisément aux _n_ dernières «colonnes» du nombre ci-dessus:
+
+| 2<sup>n-1</sup> | 2<sup>n-2</sup> | ... | 2<sup>1</sup> | 2<sup>0</sup> |
+|:-:|:-:|:-:|:-:|:-:|
+| y<sub>n-1</sub> | y<sub>n-2</sub> | ... | y<sub>1</sub> | y<sub>0</sub> |
+
+Ce qu'il manque au bloc A est le terme négatif _y<sub>n-1</sub> · -2<sup>n</sup>_. Le bloc
+B vient ajouter cette «colonne» manquante. En effet, par la proposition, le bloc B contribue aux puissances _2<sup>2n</sup>_ et _-2<sup>n</sup>_.
+Comme l'algorithme tronque aux _2n_ bits de poids faible, seule _-2<sup>n</sup>_ est ajoutée, ce
+qui correspond précisément à la «colonne» manquante.
+
+### Bloc A + Bloc B (formel)
+
+Plus formellement, la sortie de l'algorithme est <code>(BlocA + BlocB) mod 2<sup>2n</sup></code>. Ici, le modulo correspond
 à la troncation sur les _2n_ bits de poids faible. Nous avons donc:
 
 <pre>
