@@ -147,7 +147,7 @@ En général, nous obtenons
 BlocB = x · 2<sup>n</sup> + ... + x · 2<sup>2n-1</sup>.
 </code>
 
-Il est possible de démontrer que ```BlocB``` se réécrit plus simplement:
+La valeur de ```BlocB``` se réécrit plus simplement:
 <pre>
  Proposition: BlocB = x · (2<sup>2n</sup> - 2<sup>n</sup>).
  
