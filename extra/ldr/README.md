@@ -142,15 +142,15 @@ tel multiple:
 .global main
 
 main:
-    ldr     x19, bar
+    ldr     x19, bar      // distance: 0
 
-    mov     x0, 0
-    bl      exit
+    mov     x0, 0         // distance: 4
+    bl      exit          // distance: 8
 
 .section ".bss"
-foo:        .skip   1
-            .align  4     // «.align 8» fonctionnerait aussi comme 8 est un multiple de 4
-bar:        .skip   8
+foo:        .skip   1     // distance: 12
+            .align  4
+bar:        .skip   8     // distance: 16
 
 ```
 
