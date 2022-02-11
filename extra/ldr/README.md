@@ -10,8 +10,8 @@ indicated code as if it had a larger alignment than was declared where it was de
 ```
 
 J'ai réussi à corriger l'erreur en laboratoire, mais sans réellement la comprendre.
-Il s'avère qu'elle était (à mon avis) plutôt subtile. Ce billet explique l'erreur
-et présenter des solutions pour la corriger.
+Il s'avère qu'elle est (à mon avis) plutôt subtile. Ce billet explique l'erreur
+et présente des solutions pour la corriger.
 
 ## Le problème
 
