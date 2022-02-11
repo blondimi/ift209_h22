@@ -130,7 +130,7 @@ indicated code as if it had a larger alignment than was declared where it was de
 ## Solutions
 
 Nous avons déjà vu une façon de corriger l'erreur: inverser les deux
-déclarations. Il existe d'autres approches.
+déclarations. Il existe d'autres approches moins artisanales.
 
 ### Approche A: aligner ```bar```
 
