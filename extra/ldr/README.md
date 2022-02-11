@@ -10,6 +10,8 @@ indicated code as if it had a larger alignment than was declared where it was de
 ```
 
 J'ai réussi à corriger l'erreur en laboratoire, mais sans réellement la comprendre.
+Il s'avère qu'elle était (à mon avis) plutôt subtile. Ce billet explique l'erreur
+et présenter des solutions pour la corriger.
 
 ## Le problème
 
@@ -35,7 +37,7 @@ devrait charger le contenu de ```bar``` dans ```x19```,
 puis se terminer. Toutefois, le code ne compile pas; l'assembleur lance
 l'erreur décrite plus tôt.
 
-Cette variation, en apparence équivalente, du code est fonctionnelle:
+Cette variation du code, en apparence équivalente, est fonctionnelle:
 
 ```asm
 .global main
@@ -92,10 +94,10 @@ bar:        .skip   8     // distance: 12
 foo:        .skip   1     // distance: 20 
 ```
 
-Comme ```bar``` se situe à une distance de _12 = 4·3_, le nombre _x_ contient _3_.
-Lors de l'exécution de ```ldr     x19, bar```, le processeur obtient le nombre _3_,
-le multiplie par _4_ afin d'obtenir _12_, et charge le double-mot situé _12_ octets
-en mémoire (donc le contenu de ```bar```).
+Comme ```bar``` se situe à une distance de _12 = 4·3_, le nombre _x_ vaut _3_.
+Lors de l'exécution de ```ldr     x19, bar```, le processeur extrait le nombre _3_
+du code machine, le multiplie par _4_ afin d'obtenir _12_, et charge le double-mot
+situé _12_ octets plus loin en mémoire (donc le contenu de ```bar```).
 
 Reconsidérons la première version du code (celle qui ne compile pas):
 
@@ -115,7 +117,7 @@ bar:        .skip   8     // distance: 13
 
 Remarquons que ```bar``` se situe maintenant à une distance de _13_ octets en mémoire.
 Or, _13_ n'est pas un multiple de _4_, donc ce mode d'adressage ne peut pas être utilisé!
-L'avertissement de l'assembleur tente cryptiquement de nous en avertir en évoquant
+L'avertissement de l'assembleur tente tant bien que mal de nous en avertir en évoquant
 un enjeu de «taille d'alignement»:
 
 ```
@@ -125,14 +127,14 @@ warning: One possible cause of this error is that the symbol is being referenced
 indicated code as if it had a larger alignment than was declared where it was defined.
 ```
 
-# Solutions
+## Solutions
 
-Nous avons déjà vu une façon de simpler de corriger l'erreur: inverser les deux
+Nous avons déjà vu une façon de corriger l'erreur: inverser les deux
 déclarations. Il existe d'autres approches.
 
-## Approche A: Aligner ```bar```
+### Approche A: aligner ```bar```
 
-Comme le problème est que ```bar``` se situe à une distance qui n'est pas un 
+Comme le problème est que la donnée ```bar``` se situe à une distance qui n'est pas un 
 multiple de _4_, on peut simplement aligner explicitement son adresse à un
 tel multiple:
 
@@ -152,9 +154,9 @@ bar:        .skip   8
 
 ```
 
-## Approche B: utiliser ```adr```
+### Approche B: utiliser ```adr```
 
-Alternativement, on peut d'abord stocker l'adresse numérique associée à ```bar```
+Alternativement, on peut stocker l'adresse numérique associée à ```bar```
 dans un registre, puis utiliser le mode d'adressage indirect par registre:
 
 ```asm
