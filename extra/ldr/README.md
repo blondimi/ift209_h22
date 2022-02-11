@@ -117,7 +117,7 @@ bar:        .skip   8     // distance: 13
 
 Remarquons que ```bar``` se situe maintenant à une distance de _13_ octets en mémoire.
 Or, _13_ n'est pas un multiple de _4_, donc ce mode d'adressage ne peut pas être utilisé!
-L'avertissement de l'assembleur tente tant bien que mal de nous en avertir en évoquant
+L'assembleur tente tant bien que mal de nous en avertir en évoquant
 un enjeu de «taille d'alignement»:
 
 ```
