@@ -1,6 +1,4 @@
-___Billet en construction; à lire à vos risques et périls___
-
-# Chargement et alignement en mémoire
+# Chargement et alignement
 
 Une personne a obtenu une erreur en apparence étrange lors de la réalisation du labo 3:
 
@@ -117,8 +115,8 @@ bar:        .skip   8     // distance: 13
 
 Remarquons que ```bar``` se situe maintenant à une distance de _13_ octets en mémoire.
 Or, _13_ n'est pas un multiple de _4_, donc ce mode d'adressage ne peut pas être utilisé!
-L'avertissement de l'assembleur tente plutôt cryptiquement de nous en avertir en mentionnant
-un enjeu d'«alignement»:
+L'avertissement de l'assembleur tente cryptiquement de nous en avertir en évoquant
+un enjeu de «taille d'alignement»:
 
 ```
 relocation truncated to fit: R_AARCH64_LD_PREL_LO19 against `.bss'
@@ -129,4 +127,47 @@ indicated code as if it had a larger alignment than was declared where it was de
 
 # Solutions
 
-Alignement, adr, ...
+Nous avons déjà vu une façon de simpler de corriger l'erreur: inverser les deux
+déclarations. Il existe d'autres approches.
+
+## Approche A: Aligner ```bar```
+
+Comme le problème est que ```bar``` se situe à une distance qui n'est pas un 
+multiple de _4_, on peut simplement aligner explicitement son adresse à un
+tel multiple:
+
+```asm
+.global main
+
+main:
+    ldr     x19, bar
+
+    mov     x0, 0
+    bl      exit
+
+.section ".bss"
+foo:        .skip   1
+            .align  4     // «.align 8» fonctionnerait aussi comme 8 est un multiple de 4
+bar:        .skip   8
+
+```
+
+## Approche B: utiliser ```adr```
+
+Alternativement, on peut d'abord stocker l'adresse numérique associée à ```bar```
+dans un registre, puis utiliser le mode d'adressage indirect par registre:
+
+```asm
+.global main
+
+main:
+    adr     x20, bar
+    ldr     x19, [x20]
+
+    mov     x0, 0
+    bl      exit
+
+.section ".bss"
+foo:        .skip   1
+bar:        .skip   8
+```
