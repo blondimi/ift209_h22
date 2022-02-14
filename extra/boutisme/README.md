@@ -31,7 +31,7 @@ Le code est correct à l'exception de l'instruction ```str   x21, [x19, x20]``` 
 lu du flux d'entrée vers ```tab[i]``` mais sur *8 octets* plutôt qu'un seul (on devrait utiliser ```strb```). Pourtant, ce programme se termine
 sans erreur avec les dix caractères bien stockés dans ```tab```.
 
-```c
+```asm
 .global main
 
 // Lit 10 caractères et les stocke dans tab
