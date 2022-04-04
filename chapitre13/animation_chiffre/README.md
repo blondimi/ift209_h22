@@ -6,7 +6,7 @@
 
 ## Exécution
 
-Afin de compiler et d'exécuter le code, consultez [ces instructions](http://info.usherbrooke.ca/mblondin/ift209/nes/instructions.pdf).
+Afin de compiler et d'exécuter le code, consultez [ces instructions](http://info.usherbrooke.ca/mblondin/cours/ift209_h22/nes/instructions.pdf).
 
 ## Aperçu
 
